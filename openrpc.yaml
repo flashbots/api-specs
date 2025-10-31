@@ -47,7 +47,7 @@ methods:
       - name: Address
         summary: hex encoded address
         schema:
-          $ref: "#/components/schemas/Address"
+          $ref: "#/components/schemas/address"
     result:
       name: TransactounCount
       summary: Addresses transaction count. Usually used for a nonce.
