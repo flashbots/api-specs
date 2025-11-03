@@ -22,6 +22,10 @@ You can contribute to the API specs using the following steps.
 
 Run `bun test` to execute the unit tests, or `bun run build:watch` to rebuild whenever sources change. Run `bun run coverage` to execute `scripts/coverage.ts`, which drives the OpenRPC coverage suite, streams results to the console, and refreshes the HTML report (requires network access).
 
+### Coverage sendRawTransaction rule
+
+The coverage runner can optionally broadcast a real `eth_sendRawTransaction` call using `ethers`. Set `ETHEREUM_PRIVATE_KEY` (hex string) before running `bun run coverage` to enable it. The transaction uses the same account as sender and recipient, a 0 wei value, 21,000 gas limit, and the standard coverage RPC URL unless overridden globally via `COVERAGE_RPC_URL`. Without the private key the rule is skipped and coverage falls back to the default example/schema-based tests.
+
 ## Build process
 
 When you build the project, the following happens:
