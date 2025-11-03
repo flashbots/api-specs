@@ -50,7 +50,13 @@ const main = async () => {
     ],
     rules,
   });
-  results.every((r) => r.valid);
+  const passed = results.every((r) => r.valid);
+  if (!passed) {
+    process.exit(1);
+  }
+
+  // happy path
+  process.exit(0)
 };
 
 main();
