@@ -1,6 +1,7 @@
 import testCoverage from "@open-rpc/test-coverage";
 import ExamplesRule from "@open-rpc/test-coverage/build/rules/examples-rule";
 import JsonSchemaFakerRule from "@open-rpc/test-coverage/build/rules/json-schema-faker-rule";
+import HtmlReporter from '@open-rpc/test-coverage/build/reporters/html-reporter';
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
 import { parseOpenRPCDocument } from "@open-rpc/schema-utils-js";
 import mm from "../dist/build/openrpc.json";
@@ -41,7 +42,12 @@ const main = async () => {
   const results = await testCoverage({
     openrpcDocument,
     transport: customTransport,
-    reporters: ["console-streaming", "html"],
+    reporters: [
+      "console-streaming",
+      new HtmlReporter({
+        autoOpen: false
+      }),
+    ],
     rules,
   });
   results.every((r) => r.valid);
