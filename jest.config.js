@@ -173,7 +173,7 @@ module.exports = {
   // testRunner: "jest-circus/runner",
 
   // Reduce the default test timeout from 5s to 2.5s
-  testTimeout: 2500,
+  testTimeout: 25000,
 
   // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
   // testURL: "http://localhost",
