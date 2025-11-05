@@ -33,7 +33,7 @@ jobs:
         run: bun run coverage
         continue-on-error: true
       - name: Upload coverage report artifact
-        if: always() && steps.coverage.outcome != 'cancelled' && hashFiles('html-report/**') != ''
+        if: always() && steps.coverage.outcome != 'cancelled'
         uses: actions/upload-artifact@v4
         with:
           name: html-report
