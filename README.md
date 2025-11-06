@@ -1,4 +1,4 @@
-# Flashbots Protect JSON-RPC API Specification
+# Flashbots JSON-RPC API Specification
 
 This repository contains the OpenRPC specification for Flashbots' JSON-RPC API.
 You can view the specs in the following formats:
