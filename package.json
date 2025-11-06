@@ -19,7 +19,7 @@
     "coverage": "bun scripts/coverage.ts",
     "start": "bun run build",
     "prepublishOnly": "bun run build",
-    "release": "semantic-release"
+    "release": "bun scripts/semantic-release.ts"
   },
   "repository": {
     "type": "git",
