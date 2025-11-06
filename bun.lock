@@ -6,7 +6,7 @@
       "devDependencies": {
         "@open-rpc/meta-schema": "^1.14.2",
         "@open-rpc/schema-utils-js": "^1.16.1",
-        "@open-rpc/test-coverage": "^2.2.4",
+        "@open-rpc/test-coverage": "^2.2.5",
         "@xops.net/openrpc-cli": "^1.0.2",
         "ethers": "^6.13.2",
         "js-yaml": "^4.1.0",
@@ -84,7 +84,7 @@
 
     "@open-rpc/schema-utils-js": ["@open-rpc/schema-utils-js@1.16.2", "", { "dependencies": { "@json-schema-tools/dereferencer": "1.5.5", "@json-schema-tools/meta-schema": "1.6.19", "@json-schema-tools/reference-resolver": "1.2.4", "@open-rpc/meta-schema": "1.14.2", "ajv": "^6.10.0", "detect-node": "^2.0.4", "fast-safe-stringify": "^2.0.7", "fs-extra": "^10.1.0", "is-url": "^1.2.4", "isomorphic-fetch": "^3.0.0" } }, "sha512-55vQov3o8KkXD+wiw1nKZaYws2LHSntjK5Sfja4vfGN7A6Xis0r0d0MUDVj32E3pKF9Z2sTZL3sKO/nB0DKUDg=="],
 
-    "@open-rpc/test-coverage": ["@open-rpc/test-coverage@2.2.4", "", { "dependencies": { "@open-rpc/html-reporter-react": "^0.0.4", "@open-rpc/meta-schema": "^1.14.6", "@open-rpc/schema-utils-js": "^1.16.2", "@types/isomorphic-fetch": "0.0.35", "@types/lodash": "^4.14.162", "ajv": "^7.0.0", "colors": "^1.3.3", "commander": "^8.0.0", "isomorphic-fetch": "^3.0.0", "json-schema-faker": "^0.5.0-rcv.29", "lodash": "^4.17.20" }, "bin": { "open-rpc-test-coverage": "bin/cli.js" } }, "sha512-bCphsYVkBuVatXMOv5jrA0Qoh9Yx5Gpxtzi/IhUnN1ZODYbv+OOwrHsTvw/ahV0PDvIc3tkhGrx0NL9FhENf3Q=="],
+    "@open-rpc/test-coverage": ["@open-rpc/test-coverage@2.2.5", "", { "dependencies": { "@open-rpc/html-reporter-react": "^0.0.4", "@open-rpc/meta-schema": "^1.14.6", "@open-rpc/schema-utils-js": "^1.16.2", "@types/isomorphic-fetch": "0.0.35", "@types/lodash": "^4.14.162", "ajv": "^7.0.0", "colors": "^1.3.3", "commander": "^8.0.0", "isomorphic-fetch": "^3.0.0", "json-schema-faker": "^0.5.0-rcv.29", "lodash": "^4.17.20" }, "bin": { "open-rpc-test-coverage": "bin/cli.js" } }, "sha512-psTfvBBIGY+Fv6twtETGBM0HQBz99qUxql+3wjyt1x+lwFKfxTGzE/z10UHRLm9oGxy60CproMRvi6Z61Gcl+g=="],
 
     "@tabler/icons": ["@tabler/icons@3.35.0", "", {}, "sha512-yYXe+gJ56xlZFiXwV9zVoe3FWCGuZ/D7/G4ZIlDtGxSx5CGQK110wrnT29gUj52kEZoxqF7oURTk97GQxELOFQ=="],
 
