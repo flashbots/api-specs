@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      deployments: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.2.22
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Release
+        id: semantic_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
+        run: bun run release
+      - name: Build specs for Pages
+        run: bun run build
+      - name: Prepare Pages content
+        id: pages
+        run: |
+          VERSION=$(git describe --tags --abbrev=0 2>/dev/null || node -p "require('./package.json').version")
+          VERSION=${VERSION#v}
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          mkdir -p pages/latest pages/"$VERSION"
+          cp dist/build/openrpc.json pages/latest/openrpc.json
+          cp dist/build/openrpc.json pages/"$VERSION"/openrpc.json
+      - name: Deploy to GitHub Pages
+        continue-on-error: true
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ github.token }}
+          publish_branch: gh-pages
+          publish_dir: pages
+          keep_files: true
