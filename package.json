@@ -39,7 +39,7 @@
     "json-schema-merge-allof": "^0.8.1",
     "typescript": "5.9"
   },
-  "version": "0.14.0",
+  "version": "0.0.0-development",
   "engines": {
     "bun": ">=1.0.0"
   },
