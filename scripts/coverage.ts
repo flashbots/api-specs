@@ -6,6 +6,7 @@ import { OpenrpcDocument } from "@open-rpc/meta-schema";
 import { parseOpenRPCDocument } from "@open-rpc/schema-utils-js";
 import mm from "../dist/build/openrpc.json";
 import SendRawTransactionRule from "./custom-rules/send-raw-transaction-rule";
+import { applyExampleOverlays } from "./overlay";
 
 const DEFAULT_RPC_URL = "https://rpc-sepolia.flashbots.net";
 const URL = process.env.COVERAGE_RPC_URL || DEFAULT_RPC_URL;
@@ -38,7 +39,10 @@ const rules = [
 ];
 
 const main = async () => {
-  const openrpcDocument = await parseOpenRPCDocument(OpenRPCDocument);
+  const workingDocument = await applyExampleOverlays(OpenRPCDocument, {
+    rpcUrl: URL,
+  });
+  const openrpcDocument = await parseOpenRPCDocument(workingDocument);
   const results = await testCoverage({
     openrpcDocument,
     transport: customTransport,

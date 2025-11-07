@@ -1,0 +1,65 @@
+target: $.methods[?(@.name=='eth_getFilterLogs')].examples[0]
+set:
+  name: eth_getFilterLogs
+  description: Filter logs for block 0x16a5fd9
+  params:
+    - name: Filter id
+      value: '0x10ff33178ec5ececcb753c2a44f9cbc8270c2d588eb2efb2426439a1f10817c5'
+  result:
+    name: Filter logs
+    value:
+      - address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+        blockHash: '0xed148927ee1a4d2e598a7a1b788b2d528c10f155a128847791c7b75819df87ad'
+        blockNumber: '0x16a5fd9'
+        data: '0x000000000000000000000000000000000000000000000000008262749f41c000'
+        logIndex: '0x0'
+        removed: false
+        topics:
+          - '0xe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c'
+          - '0x0000000000000000000000004a14347083b80e5216ca31350a2d21702ac3650d'
+        transactionHash: '0x95eee68bb2ab8a212a363e0d6bab2299cb73bfa7e75927c1e9cb20681985c709'
+        transactionIndex: '0x0'
+      - address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+        blockHash: '0xed148927ee1a4d2e598a7a1b788b2d528c10f155a128847791c7b75819df87ad'
+        blockNumber: '0x16a5fd9'
+        data: '0x00000000000000000000000000000000000000000000000002d127e0ac5dd6ef'
+        logIndex: '0x40'
+        removed: false
+        topics:
+          - '0xe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c'
+          - '0x0000000000000000000000001103fc560de8b710983e7f3ec09d587f3f848566'
+        transactionHash: '0xcf105b41acbe0520dc68a93fe61fde9c95ead23f7efad6a4e2816fa7933a97ee'
+        transactionIndex: '0x6'
+      - address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+        blockHash: '0xed148927ee1a4d2e598a7a1b788b2d528c10f155a128847791c7b75819df87ad'
+        blockNumber: '0x16a5fd9'
+        data: '0x0000000000000000000000000000000000000000000000000085b7563e880534'
+        logIndex: '0x5b'
+        removed: false
+        topics:
+          - '0xe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c'
+          - '0x00000000000000000000000066a9893cc07d91d95644aedd05d03f95e1dba8af'
+        transactionHash: '0x4494f775bf042ad853a62b45aa5fa7346e6ce7d6a050159e21b3f9d3ace0d6e3'
+        transactionIndex: '0xb'
+      - address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+        blockHash: '0xed148927ee1a4d2e598a7a1b788b2d528c10f155a128847791c7b75819df87ad'
+        blockNumber: '0x16a5fd9'
+        data: '0x00000000000000000000000000000000000000000000000006011077e4390f1d'
+        logIndex: '0x63'
+        removed: false
+        topics:
+          - '0xe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c'
+          - '0x000000000000000000000000207e1074858a7e78f17002075739ed2745dbaece'
+        transactionHash: '0xcffd9796e77ca0353f03b45eaccea2191f90e4e2ce59601e036c6d1ec6466b0d'
+        transactionIndex: '0xe'
+      - address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+        blockHash: '0xed148927ee1a4d2e598a7a1b788b2d528c10f155a128847791c7b75819df87ad'
+        blockNumber: '0x16a5fd9'
+        data: '0x000000000000000000000000000000000000000000000000007f39aef4ba2f61'
+        logIndex: '0x1dc'
+        removed: false
+        topics:
+          - '0xe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c'
+          - '0x0000000000000000000000008c864d0c8e476bf9eb9d620c10e1296fb0e2f940'
+        transactionHash: '0x92b82aca4878e3f9ff3aae8ef94cf220dff23044c669bf8862fd95ca8824fdd4'
+        transactionIndex: '0xe2'

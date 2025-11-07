@@ -1,0 +1,13 @@
+target: $.methods[?(@.name=='eth_estimateGas')].examples[0]
+set:
+  name: eth_estimateGas
+  description: Example generated from Flashbots sepolia at block 0x9230d3
+  params:
+    - name: Transaction
+      value:
+        from: '0x5cc0dde14e7256340cc820415a6022a7d1c93a35'
+        to: '0x5cc0dde14e7256340cc820415a6022a7d1c93a35'
+        value: '0x0'
+  result:
+    name: Estimated gas
+    value: '0x5208'
