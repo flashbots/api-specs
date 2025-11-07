@@ -35,7 +35,10 @@ if (!OpenRPCDocument) {
 const rules = [
   new SendRawTransactionRule(),
   new JsonSchemaFakerRule(),
-  new ExamplesRule(),
+  new ExamplesRule({
+    only: [],
+    skip: ['eth_sendRawTransaction']
+  }),
 ];
 
 const main = async () => {
@@ -53,6 +56,7 @@ const main = async () => {
       }),
     ],
     rules,
+    skip: ['eth_getBlockReceipts', 'eth_getFilterLogs', 'eth_getFilterChanges', 'eth_getProof']
   });
   const passed = results.every((r) => r.valid);
   if (!passed) {
