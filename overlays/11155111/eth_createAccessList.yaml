@@ -1,21 +1,20 @@
 target: $.methods[?(@.name=='eth_createAccessList')].examples[0]
 set:
   name: eth_createAccessList
-  description: Example generated from Flashbots sepolia at block 0x9230d3
+  description: Example generated from Flashbots sepolia at block 0x923290
   params:
     - name: Transaction
       value:
-        from: '0x6dc5bf19f316a525bd6aeb5cab8966efccf0d8c3'
-        to: '0xca11bde05977b3631167028862be2a173976ca11'
-        gas: '0x13d344'
-        maxFeePerGas: '0xb2d05e0b'
-        maxPriorityFeePerGas: '0xb2d05e00'
+        from: '0x4ea09d8f3fb494a11072ff05b1be2241adceed09'
+        to: '0x006b2223248d0e45296d7d4f3cfff325579954c4'
+        gas: '0x5208'
+        maxFeePerGas: '0x37fdb9980'
+        maxPriorityFeePerGas: '0x12a9e8880'
         value: '0x0'
     - name: Block
-      value: '0x9230d3'
+      value: '0x923290'
   result:
     name: Access list information
     value:
       accessList: []
-      error: execution reverted
-      gasUsed: '0x5236'
+      gasUsed: '0x5208'
