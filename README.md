@@ -4,6 +4,7 @@ This repository contains the OpenRPC specification for Flashbots' JSON-RPC API.
 You can view the specs in the following formats:
 
 - [Latest build](https://flashbots.github.io/api-specs/latest/openrpc.json)
+- [Playground With latest build](https://playground.open-rpc.org/?schemaUrl=https://flashbots.github.io/api-specs/latest/openrpc.json&uiSchema[appBar][ui:splitView]=false&uiSchema[appBar][ui:input]=false&uiSchema[appBar][ui:examplesDropdown]=false&uiSchema[appBar][ui:transports]=false&uiSchema[appBar][ui:edit]=false&uiSchema[appBar][ui:title]=Flashbots&uiSchema[appBar][ui:logoUrl]=https://docs.flashbots.net/img/brand-assets/flashbots_icon.png)
 
 [OpenRPC](https://open-rpc.org/) is way to specify JSON-RPC APIs that is versionable,
 human-readable, and machine-readable.
