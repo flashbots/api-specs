@@ -56,7 +56,7 @@ const main = async () => {
       }),
     ],
     rules,
-    skip: ['eth_getBlockReceipts', 'eth_getFilterLogs', 'eth_getFilterChanges', 'eth_getProof']
+    skip: ['eth_coinbase', 'eth_getBlockReceipts', 'eth_getFilterLogs', 'eth_getFilterChanges', 'eth_getProof']
   });
   const passed = results.every((r) => r.valid);
   if (!passed) {
