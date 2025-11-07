@@ -1,0 +1,10 @@
+target: $.methods[?(@.name=='eth_getFilterChanges')].examples[0]
+set:
+  name: eth_getFilterChanges
+  description: Filter changes for block 0x16a5fd9
+  params:
+    - name: Filter id
+      value: '0x10ff33178ec5ececcb753c2a44f9cbc8270c2d588eb2efb2426439a1f10817c5'
+  result:
+    name: Filter changes
+    value: []
