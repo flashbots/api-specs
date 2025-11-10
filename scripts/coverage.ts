@@ -7,25 +7,10 @@ import { parseOpenRPCDocument } from "@open-rpc/schema-utils-js";
 import mm from "../dist/build/openrpc.json";
 import SendRawTransactionRule from "./custom-rules/send-raw-transaction-rule";
 import { applyExampleOverlays } from "./overlay";
+import httpWithAuth from "./custom-transports/http-with-auth";
 
 const DEFAULT_RPC_URL = "https://rpc-sepolia.flashbots.net";
 const URL = process.env.COVERAGE_RPC_URL || DEFAULT_RPC_URL;
-
-let id = 0;
-const customTransport = async (_: string, method: string, params: any): Promise<any> => {
-  return fetch(URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      jsonrpc: "2.0",
-      id: id++,
-      method,
-      params,
-    }),
-  }).then((r: any) => {
-    return r.json();
-  });
-};
 
 const OpenRPCDocument = mm as OpenrpcDocument;
 if (!OpenRPCDocument) {
@@ -48,7 +33,7 @@ const main = async () => {
   const openrpcDocument = await parseOpenRPCDocument(workingDocument);
   const results = await testCoverage({
     openrpcDocument,
-    transport: customTransport,
+    transport: httpWithAuth,
     reporters: [
       "console-streaming",
       new HtmlReporter({
@@ -56,7 +41,15 @@ const main = async () => {
       }),
     ],
     rules,
-    skip: ['eth_coinbase', 'eth_getBlockReceipts', 'eth_getFilterLogs', 'eth_getFilterChanges', 'eth_getProof']
+    skip: [
+      'eth_coinbase', // old deprecated -- for mining
+      'eth_getBlockReceipts', // new method -- something going on with spec itself -- oneOf error
+      'eth_getFilterLogs', // log ids are stateful -- not great to test
+      'eth_getFilterChanges', // log ids are stateful -- not great to test
+      'eth_getProof', // gets pruned
+      'eth_getLogs', // gets pruned
+      'eth_createAccessList', // gets pruned
+    ]
   });
   const passed = results.every((r) => r.valid);
   if (!passed) {
