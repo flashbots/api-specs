@@ -42,6 +42,9 @@ When you build the project, the following happens:
 
 6. These files are output to the `dist` folder and the `src/build` contents are deleted.
 
+## Running the api spec tests via actions
+If you have permissions you can follow the guide here: https://www.notion.so/flashbots/Running-API-Spec-Tests-for-protect-2ab6b4a0d876800b9be5f57233fc6a4a?showMoveTo=true&saveParent=true
+
 ## Publishing process
 
 On release, the specs are published to npm at `@flashbots/api-specs` and to
