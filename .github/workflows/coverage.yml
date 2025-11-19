@@ -11,6 +11,8 @@ on:
         description: "Optional RPC URL override for coverage"
         required: false
         default: "https://rpc-sepolia.flashbots.net"
+  schedule:
+    - cron: '0 11 * * *'
 
 jobs:
   run-coverage:
