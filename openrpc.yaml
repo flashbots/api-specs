@@ -13,24 +13,85 @@ servers:
   - url: https://rpc-sepolia.flashbots.net/fast
   - url: https://rpc-staging.flashbots.net/fast
 methods:
-  - name: net_version
-    params: []
+  - name: eth_sendBundle
+    description: Send bundles to Flashbots builder for inclusion in a block.
+    tags:
+      - $ref: "#/components/tags/Flashbots"
+      - $ref: "#/components/tags/MEV-Share"
+    params:
+      - name: bundle
+        description: The bundle parameters
+        required: true
+        schema:
+          type: object
+          required:
+            - txs
+            - blockNumber
+          properties:
+            txs:
+              type: array
+              items:
+                type: string
+                # TODO: add pattern or ref to spec
+              description: A list of signed transactions to execute in an atomic bundle
+            blockNumber:
+              type: string
+              description: A hex encoded block number for which this bundle is valid on
+                # TODO: add pattern
+            # Optional fields
+            replacementUuid:
+              type: string
+              description: UUID that can be used to cancel/replace this bundle
+            # replacementNonce:
+            #   type: string
+            #   description: Used to order bundles sharing the same replacementUuid. Bundles received with a lower replacementNonce than the latest accepted one are ignored.
+            minTimestamp:
+              type: number
+              description: The minimum timestamp for which this bundle is valid, in seconds since the unix epoch
+            maxTimestamp:
+              type: number
+              description: The maximum timestamp for which this bundle is valid, in seconds since the unix epoch
+            revertingTxHashes:
+              type: array
+              items:
+                type: string
+              description: A list of tx hashes that are allowed to revert
+            builders:
+              type: array
+              items:
+                type: string
+              description: A list of registered block builder names to share the bundle with
     result:
-      description: Returns the current network ID.
-      name: net_version
+      description: The bundle hash and optional smart field
+      name: sendBundleResult
       schema:
-        type: string
-    description: Returns the current network ID.
+        type: object
+        properties:
+          bundleHash:
+            type: string
+            description: The hash of the submitted bundle
+          smart:
+            type: boolean
+            description: Present when builders are specified
     examples:
-      - name: net_version
-        description: Example of a net_version request
-        params: []
+      - name: sendBundleExample
+        description: Send a simple bundle to the builder
+        params:
+          - name: bundle
+            value:
+              txs:
+                - "0x02f86d83aa36a7808315f5d58502743734f9825208941c23261557c01483d854c3663c1cf00d86033ad68080c080a0d10bed55662e9ca06fb03a3bfe0c7be55849c891330fe81e85676d005e48f2e9a061150540adf40d06a81cd714bb165ccfc6a893ef7699b8233f9e1301dac1f64f"
+              blockNumber: "0x9c5682"
         result:
-          name: net_version
-          description: The current network ID
-          value: "0x1"
+          name: bundleResult
+          value:
+            bundleHash: "0x7d47634daddf02b556b9882e4c0eec759fc88fafb57a3758b8dfa82a8bcc801a"
+
 components:
   tags:
     Flashbots:
       name: Flashbots
       description: Flashbots specific method
+    MEV-Share:
+      name: MEV-Share
+      description: MEV-Share specific method
