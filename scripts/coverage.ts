@@ -5,6 +5,7 @@ import HtmlReporter from '@open-rpc/test-coverage/build/reporters/html-reporter'
 import { OpenrpcDocument } from "@open-rpc/meta-schema";
 import { parseOpenRPCDocument } from "@open-rpc/schema-utils-js";
 import mm from "../dist/build/openrpc.json";
+import SendBundleRule from "./custom-rules/send-bundle-rule";
 import SendRawTransactionRule from "./custom-rules/send-raw-transaction-rule";
 import { applyExampleOverlays } from "./overlay";
 import httpWithAuth from "./custom-transports/http-with-auth";
@@ -19,10 +20,11 @@ if (!OpenRPCDocument) {
 
 const rules = [
   new SendRawTransactionRule(),
+  new SendBundleRule(),
   new JsonSchemaFakerRule(),
   new ExamplesRule({
     only: [],
-    skip: ['eth_sendRawTransaction']
+    skip: ['eth_sendRawTransaction', 'eth_sendBundle']
   }),
 ];
 

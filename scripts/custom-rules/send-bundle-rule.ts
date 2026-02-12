@@ -2,15 +2,20 @@ import type { Call } from "@open-rpc/test-coverage/build/coverage";
 import type Rule from "@open-rpc/test-coverage/build/rules/rule";
 import type { MethodObject, OpenrpcDocument } from "@open-rpc/meta-schema";
 import Ajv from "ajv";
-import { JsonRpcProvider, Wallet, parseUnits } from "ethers";
+import { JsonRpcProvider, Wallet, parseUnits, toBeHex } from "ethers";
 
 const DEFAULT_RPC_URL = "https://rpc-sepolia.flashbots.net";
 const DEFAULT_GAS_LIMIT = BigInt(21000);
 const DEFAULT_VALUE_WEI = BigInt(0);
 const missingConfigMessage =
-  "[SendRawTransactionRule] Missing ETHEREUM_PRIVATE_KEY; rule disabled.";
+  "[SendBundleRule] Missing ETHEREUM_PRIVATE_KEY; rule disabled.";
 
-export default class SendRawTransactionRule implements Rule {
+type BundleParams = {
+  txs: string[];
+  blockNumber: string;
+};
+
+export default class SendBundleRule implements Rule {
   private readonly privateKey?: string;
   private readonly rpcUrl: string;
   private readonly valueWei: bigint;
@@ -31,7 +36,7 @@ export default class SendRawTransactionRule implements Rule {
   }
 
   public getTitle(): string {
-    return "Send raw transaction via ethers";
+    return "Send bundle via ethers";
   }
 
   private logMissingConfig(): void {
@@ -50,7 +55,7 @@ export default class SendRawTransactionRule implements Rule {
 
   private getWallet(): Wallet {
     if (!this.privateKey) {
-      throw new Error("SendRawTransactionRule requires ETHEREUM_PRIVATE_KEY");
+      throw new Error("SendBundleRule requires ETHEREUM_PRIVATE_KEY");
     }
     if (!this.wallet) {
       this.wallet = new Wallet(this.privateKey, this.getProvider());
@@ -58,7 +63,7 @@ export default class SendRawTransactionRule implements Rule {
     return this.wallet;
   }
 
-  private async buildSignedTransaction(): Promise<{ signedTransaction: string; from: string }> {
+  private async buildBundle(): Promise<{ bundle: BundleParams; from: string }> {
     const wallet = this.getWallet();
     const targetAddress = wallet.address;
     const feeData = await this.getProvider().getFeeData();
@@ -76,8 +81,15 @@ export default class SendRawTransactionRule implements Rule {
       maxFeePerGas: maxFeePerGas >= maxPriorityFeePerGas ? maxFeePerGas : maxPriorityFeePerGas,
     });
 
+    const currentBlock = await this.getProvider().getBlockNumber();
+    const blockNumber = toBeHex(currentBlock + 1);
+    const signedTransaction = await wallet.signTransaction(populated);
+
     return {
-      signedTransaction: await wallet.signTransaction(populated),
+      bundle: {
+        txs: [signedTransaction],
+        blockNumber,
+      },
       from: wallet.address,
     };
   }
@@ -86,7 +98,7 @@ export default class SendRawTransactionRule implements Rule {
     _openrpcDocument: OpenrpcDocument,
     method: MethodObject,
   ): Promise<Call[]> {
-    if (method.name !== "eth_sendRawTransaction") {
+    if (method.name !== "eth_sendBundle") {
       return [];
     }
 
@@ -95,12 +107,12 @@ export default class SendRawTransactionRule implements Rule {
       return [];
     }
 
-    const { signedTransaction, from } = await this.buildSignedTransaction();
+    const { bundle, from } = await this.buildBundle();
 
     return [
       {
         methodName: method.name,
-        params: [signedTransaction],
+        params: [bundle],
         url: this.rpcUrl,
         title: this.getTitle(),
         resultSchema: method.result?.schema,
@@ -112,8 +124,10 @@ export default class SendRawTransactionRule implements Rule {
               {
                 from,
                 to: from,
+                blockNumber: bundle.blockNumber,
                 value: this.valueWei.toString(),
                 gasLimit: this.gasLimit.toString(),
+                txCount: bundle.txs.length,
               },
               null,
               2,
@@ -125,7 +139,7 @@ export default class SendRawTransactionRule implements Rule {
   }
 
   public validateCall(call: Call): Call {
-    if (call.methodName !== "eth_sendRawTransaction") {
+    if (call.methodName !== "eth_sendBundle") {
       return call;
     }
 
