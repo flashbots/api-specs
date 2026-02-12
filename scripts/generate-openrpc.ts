@@ -46,7 +46,7 @@ const filterExecutionAPIs = (document: MergeableDocument): MergeableDocument => 
 const withEthereumTag = (methods: MergeableMethod[] = []): MergeableMethod[] =>
   methods.map((method) => ({
     ...method,
-    tags: [...(method.tags ?? []), ETHEREUM_TAG],
+    tags: [ETHEREUM_TAG, ...(method.tags ?? [])],
   }));
 
 const getFilteredExecutionAPIs = async (): Promise<MergeableDocument> => {
