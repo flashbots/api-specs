@@ -1,0 +1,88 @@
+openrpc: 1.2.4
+info:
+  title: BuilderNet JSON-RPC API
+  version: 1.0.0
+  description: >-
+    BuilderNet JSON-RPC API endpoint.
+methods:
+  - name: eth_sendBundle
+    description: Send bundles to BuilderNet for inclusion in a block.
+    params:
+      - name: bundle
+        description: The bundle parameters
+        required: true
+        schema:
+          type: object
+          required:
+            - txs
+            - blockNumber
+          properties:
+            txs:
+              description: A list of signed transactions to execute in an atomic bundle
+              type: array
+              items:
+                type: string
+                # TODO: add pattern or ref to spec
+            blockNumber:
+              description: A hex encoded block number for which this bundle is valid on
+              # TODO: add pattern
+              type: string
+            # Optional fields
+            replacementUuid:
+              description: UUID that can be used to cancel/replace this bundle
+              type: string
+            replacementNonce:
+              type: string
+              description: Used to order bundles sharing the same replacementUuid. Bundles received with a lower replacementNonce than the latest accepted one are ignored.
+            revertingTxHashes:
+              description: A list of tx hashes that are allowed to revert
+              type: array
+              items:
+                type: string
+            droppingTxHashes:
+              description: A list of tx hashes that are allowed to drop
+              type: array
+              items:
+                type: string
+            minTimestamp:
+              description: The minimum timestamp for which this bundle is valid, in seconds since the unix epoch
+              type: number
+            maxTimestamp:
+              description: The maximum timestamp for which this bundle is valid, in seconds since the unix epoch
+              type: number
+            refundPercent:
+              description: How much of the total priority fee + coinbase payment you want to be refunded for.
+              type: number
+              minimum: 1
+              maximum: 99
+            refundRecipient:
+              description: The address that the funds from refundPercent will be sent to. If not specified, they will be sent to the from address of the first transaction.
+              type: string
+            delayedRefund:
+              description:  If true, `refundPercent` refund is processed asynchronously via BuilderNet refund pipeline rather than in the same block.
+              type: boolean
+            refundIdentity:
+              description: String, Address that BuilderNet refunds should be sent to instead of the bundle signer.
+              type: string
+    result:
+      description: The bundle hash
+      name: sendBundleResult
+      schema:
+        type: object
+        properties:
+          bundleHash:
+            type: string
+            description: The hash of the submitted bundle
+    examples:
+      - name: sendBundleExample
+        description: Send a simple bundle to the builder
+        params:
+          - name: bundle
+            value:
+              txs:
+                - "0x02f86d83aa36a7808315f5d58502743734f9825208941c23261557c01483d854c3663c1cf00d86033ad68080c080a0d10bed55662e9ca06fb03a3bfe0c7be55849c891330fe81e85676d005e48f2e9a061150540adf40d06a81cd714bb165ccfc6a893ef7699b8233f9e1301dac1f64f"
+              blockNumber: "0x9c5682"
+        result:
+          name: bundleResult
+          value:
+            bundleHash: "0x7d47634daddf02b556b9882e4c0eec759fc88fafb57a3758b8dfa82a8bcc801a"
