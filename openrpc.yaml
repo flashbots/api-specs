@@ -80,15 +80,12 @@ methods:
           - name: bundle
             value:
               txs:
-                - "0x123abc..."
-                - "0x456def..."
-              blockNumber: "0xb63dcd"
-              minTimestamp: 0
-              maxTimestamp: 1615920932
+                - "0x02f86d83aa36a7808315f5d58502743734f9825208941c23261557c01483d854c3663c1cf00d86033ad68080c080a0d10bed55662e9ca06fb03a3bfe0c7be55849c891330fe81e85676d005e48f2e9a061150540adf40d06a81cd714bb165ccfc6a893ef7699b8233f9e1301dac1f64f"
+              blockNumber: "0x9c5682"
         result:
           name: bundleResult
           value:
-            bundleHash: "0x2228f5d8954ce31dc1601a8ba264dbd401bf1428388ce88238932815c5d6f23f"
+            bundleHash: "0x7d47634daddf02b556b9882e4c0eec759fc88fafb57a3758b8dfa82a8bcc801a"
 
 components:
   tags:
