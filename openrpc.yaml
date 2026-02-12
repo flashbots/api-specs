@@ -24,7 +24,9 @@ methods:
         required: true
         schema:
           type: object
-          required: ['txs', 'blockNumber']
+          required:
+            - txs
+            - blockNumber
           properties:
             txs:
               type: array
@@ -59,9 +61,6 @@ methods:
               items:
                 type: string
               description: A list of registered block builder names to share the bundle with
-          required:
-            - txs
-            - blockNumber
     result:
       description: The bundle hash and optional smart field
       name: sendBundleResult
