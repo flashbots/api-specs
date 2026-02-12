@@ -24,6 +24,7 @@ methods:
         required: true
         schema:
           type: object
+          required: ['txs', 'blockNumber']
           properties:
             txs:
               type: array
